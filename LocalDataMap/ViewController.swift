@@ -10,18 +10,21 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSURLConnectionDelegate{
 
     var myMapView :MKMapView!
     var myLocationManager :CLLocationManager!
     var userLocation: CLLocationCoordinate2D!
     var resortLocation: CLLocationCoordinate2D!
-
+    
+    //var koukyouArrays: Array! = [String]()
+    //var koukyouDictionary: Dictionary! = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         myMapView = MKMapView()
+        myMapView.showsUserLocation = true
         myLocationManager = CLLocationManager()
         
         myMapView.delegate = self
@@ -40,12 +43,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.view.addSubview(myMapView)
         myLocationManager.startUpdatingLocation()
         
+        getData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
+    //MARK: - 地図関連メソッド
     
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
         println("regionDidChangeAnimated")
@@ -61,12 +69,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.myMapView.setRegion(region, animated: true)
         
         userLocation = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude)
-        
+        /*
         //現在地のアノテーション生成
         var userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
-        userLocAnnotation.coordinate = userLocation
+        userLocAnnotration.coordinate = userLocation
         userLocAnnotation.title = "現在地"
         myMapView.addAnnotation(userLocAnnotation)
+        */
     }
     
     //現在地取得失敗時
@@ -90,5 +99,26 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             println("etc.")
         }
     }
+    
+    // API取得の開始処理
+    func getData() {
+        var parameter : String! = ""
+        let URL = NSURL(string: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/kanko/%E8%A1%8C%E4%BA%8B%E3%83%BB%E7%A5%AD%E4%BA%8B/json?\(parameter)")
+        let req = NSURLRequest(URL: URL!)
+        let connection: NSURLConnection = NSURLConnection(request: req, delegate: self, startImmediately: false)!
+        
+        // NSURLConnectionを使ってAPIを取得する
+        NSURLConnection.sendAsynchronousRequest(req,
+            queue: NSOperationQueue.mainQueue(),
+            completionHandler: response)
+    }
+    
+    // 取得したAPIデータの処理
+    func response(res: NSURLResponse!, data: NSData!, error: NSError!){
+        
+        println(data)
+        
+    }
+
 }
 
