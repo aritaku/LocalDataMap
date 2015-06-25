@@ -17,11 +17,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var userLocation: CLLocationCoordinate2D!
     var resortLocation: CLLocationCoordinate2D!
     
+    var festivalLatitude: Double?
+    var festivalLongitude: Double?
+    
+    var festivalName = [String]()
+    
+    
     //var koukyouArrays: Array! = [String]()
     //var koukyouDictionary: Dictionary! = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        festivalName = [String]()
         
         myMapView = MKMapView()
         myMapView.showsUserLocation = true
@@ -126,13 +134,31 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         let json = JSON(data: data)
         if let name = json["tourspots"][0]["name"]["name1"]["written"].string{
-                println(name)
+            festivalName.append(name)
+            println(name)
         }
-        if let coordinates = json["tourspots"][0]["place"].string{
-            println(coordinates)
+        if var longitude : String = json["tourspots"][0]["place"]["coordinates"]["longitude"].string, var latitude : String = json["tourspots"][0]["place"]["coordinates"]["latitude"].string {
+            festivalLatitude = atof(latitude)
+            festivalLongitude = atof(longitude)
+            println("経度\(longitude), 緯度\(latitude)")
         }
         
+        makeTourspotsPins(festivalLatitude!,longitude: festivalLongitude!)
+
+    }
+    
+    func makeTourspotsPins(latitude:Double, longitude:Double){
         
+        var festivalPin :MKPointAnnotation = MKPointAnnotation()
+        let pinLongitude :CLLocationDegrees = longitude
+        let pinLatitude :CLLocationDegrees = latitude
+        
+        let coordinate :CLLocationCoordinate2D = CLLocationCoordinate2DMake(pinLatitude, pinLongitude)
+        
+        festivalPin.coordinate = coordinate
+        festivalPin.title = festivalName[0]
+        
+        myMapView.addAnnotation(festivalPin)
         
     }
 
