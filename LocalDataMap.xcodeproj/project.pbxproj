@@ -15,6 +15,7 @@
 		9A322E371B3845500097F86D /* LocalDataMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A322E361B3845500097F86D /* LocalDataMapTests.swift */; };
 		9A322E411B38C6DC0097F86D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A322E401B38C6DC0097F86D /* MapKit.framework */; };
 		9A322E431B38C6E90097F86D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A322E421B38C6E90097F86D /* CoreLocation.framework */; };
+		9A9B180A1B3BBAEA00CBFBD7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B18091B3BBAEA00CBFBD7 /* SwiftyJSON.swift */; };
 		DD1BB5AF554E172843F965F0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E85ADBB88161CB0E6DB4071 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		9A322E361B3845500097F86D /* LocalDataMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataMapTests.swift; sourceTree = "<group>"; };
 		9A322E401B38C6DC0097F86D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9A322E421B38C6E90097F86D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9A9B18091B3BBAEA00CBFBD7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../Pods/SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		9A322E1D1B3845500097F86D /* LocalDataMap */ = {
 			isa = PBXGroup;
 			children = (
+				9A9B18091B3BBAEA00CBFBD7 /* SwiftyJSON.swift */,
 				9A322E201B3845500097F86D /* AppDelegate.swift */,
 				9A322E221B3845500097F86D /* ViewController.swift */,
 				9A322E241B3845500097F86D /* Main.storyboard */,
@@ -295,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A9B180A1B3BBAEA00CBFBD7 /* SwiftyJSON.swift in Sources */,
 				9A322E231B3845500097F86D /* ViewController.swift in Sources */,
 				9A322E211B3845500097F86D /* AppDelegate.swift in Sources */,
 			);

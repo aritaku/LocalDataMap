@@ -102,8 +102,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // API取得の開始処理
     func getData() {
-        var parameter : String! = ""
-        let URL = NSURL(string: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/kanko/%E8%A1%8C%E4%BA%8B%E3%83%BB%E7%A5%AD%E4%BA%8B/json?\(parameter)")
+        var parameter : String! = "京都府"
+        let searchWord:String! = parameter.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let URL = NSURL(string: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/kanko/%E8%A1%8C%E4%BA%8B%E3%83%BB%E7%A5%AD%E4%BA%8B/json?place=\(searchWord)")
         let req = NSURLRequest(URL: URL!)
         let connection: NSURLConnection = NSURLConnection(request: req, delegate: self, startImmediately: false)!
         
@@ -115,8 +116,23 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // 取得したAPIデータの処理
     func response(res: NSURLResponse!, data: NSData!, error: NSError!){
+        /*
+        let json:NSDictionary = NSJSONSerialization.JSONObjectWithData(data,
+            options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+        //let tourspots:NSDictionary = json.objectForKey("tourspots") as! NSDictionary
+        let names:NSDictionary = json.objectForKey("[tourspots]") as! NSDictionary
+        let name1:NSArray = names.objectForKey("name.written") as! NSArray
+        */
         
-        println(data)
+        let json = JSON(data: data)
+        if let name = json["tourspots"][0]["name"]["name1"]["written"].string{
+                println(name)
+        }
+        if let coordinates = json["tourspots"][0]["place"].string{
+            println(coordinates)
+        }
+        
+        
         
     }
 
