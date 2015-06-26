@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BC8B1B68-A788-4CCA-9994-5644B61085C9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LocalDataMap</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C2265AD8885BB81CBE800383482BF161C07D4A5C</key>
+		<string>https://github.com/aritaku/LocalDataMap.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LocalDataMap.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C2265AD8885BB81CBE800383482BF161C07D4A5C</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/aritaku/LocalDataMap.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C2265AD8885BB81CBE800383482BF161C07D4A5C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C2265AD8885BB81CBE800383482BF161C07D4A5C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LocalDataMap</string>
+		</dict>
+	</array>
+</dict>
+</plist>

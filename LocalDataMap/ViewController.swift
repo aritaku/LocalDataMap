@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SwiftyJSON
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSURLConnectionDelegate{
 
@@ -20,7 +21,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var festivalLatitude: Double?
     var festivalLongitude: Double?
     
-    var festivalName = [String]()
+    var festivalName: String!
     
     
     //var koukyouArrays: Array! = [String]()
@@ -28,8 +29,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        festivalName = [String]()
         
         myMapView = MKMapView()
         myMapView.showsUserLocation = true
@@ -111,8 +110,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     // API取得の開始処理
     func getData() {
         var parameter : String! = "京都府"
-        let searchWord:String! = parameter.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        let URL = NSURL(string: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/kanko/%E8%A1%8C%E4%BA%8B%E3%83%BB%E7%A5%AD%E4%BA%8B/json?place=\(searchWord)")
+        var janru :String! = "行事・祭事"
+        var limit :Int = 50
+        let parameterEncoded:String! = parameter.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let janruEncoded: String! = janru.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        
+        let URL = NSURL(string: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/kanko/\(janruEncoded)/json?place=\(parameterEncoded)&limit=\(limit)")
         let req = NSURLRequest(URL: URL!)
         let connection: NSURLConnection = NSURLConnection(request: req, delegate: self, startImmediately: false)!
         
@@ -133,17 +136,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         */
         
         let json = JSON(data: data)
-        if let name = json["tourspots"][0]["name"]["name1"]["written"].string{
-            festivalName.append(name)
-            println(name)
+        for var i = 0; i < 50; i++ {
+            if let name = json["tourspots"][i]["name"]["name1"]["written"].string{
+                festivalName = name
+                println(name)
+            }
+            if var longitude : String = json["tourspots"][i]["place"]["coordinates"]["longitude"].string, var latitude : String = json["tourspots"][i]["place"]["coordinates"]["latitude"].string {
+                festivalLatitude = atof(latitude)
+                festivalLongitude = atof(longitude)
+                println("経度\(longitude), 緯度\(latitude)")
+            }
+            
+            makeTourspotsPins(festivalLatitude!,longitude: festivalLongitude!)
         }
-        if var longitude : String = json["tourspots"][0]["place"]["coordinates"]["longitude"].string, var latitude : String = json["tourspots"][0]["place"]["coordinates"]["latitude"].string {
-            festivalLatitude = atof(latitude)
-            festivalLongitude = atof(longitude)
-            println("経度\(longitude), 緯度\(latitude)")
-        }
-        
-        makeTourspotsPins(festivalLatitude!,longitude: festivalLongitude!)
+
 
     }
     
@@ -156,7 +162,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let coordinate :CLLocationCoordinate2D = CLLocationCoordinate2DMake(pinLatitude, pinLongitude)
         
         festivalPin.coordinate = coordinate
-        festivalPin.title = festivalName[0]
+        festivalPin.title = festivalName
         
         myMapView.addAnnotation(festivalPin)
         

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1363552425846188C2514780"
+               BlueprintIdentifier = "A1C1AAA91E6A9DA1350FC6A6"
                BuildableName = "Pods_LocalDataMap.framework"
                BlueprintName = "Pods-LocalDataMap"
                ReferencedContainer = "container:Pods.xcodeproj">
